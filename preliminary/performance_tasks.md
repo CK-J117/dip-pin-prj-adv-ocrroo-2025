@@ -36,9 +36,9 @@ Complete the steps below and fill in the `> block` sections
   - What role does OpenCV have in this project?
   >
   - What is the `uv pip` command to install OpenCV?
-  > `uv pip install ????`
+  > `uv pip install opencv-python`
   - What is the URL of this library's git repo?
-  > [Insert URL Here](https://github.com/opencv/????-?????)
+  > [(https://github.com/opencv/opencv/releases/tag/5.1.0)](https://github.com/opencv/????-?????)
 5. Add OpenCV to your project using the `uv add` command:
   > `uv add name-of-open-cv-library
 
