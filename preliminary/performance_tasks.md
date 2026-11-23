@@ -15,7 +15,7 @@ You must demonstrate your ability at:
 2. Fork this repository
 3. Clone the repository to your local computer
 4. Install `uv` and check that it is running with `uv --version`
-5. Obtain a video that can be used to test the functionality and place in the `resources/` folder - your instructor will provide you with one
+5. Obtain a video that can be used to test the functionality and place in the `resources` folder - your instructor will provide you with one
 6. Follow the steps in the remainder of the guide insuring your commit to git whenever prompted
 7. Submit a `zip` of this repository along with the `.git` folder. **Do not include your `venv/`**. Ensure your submission includes the assessment Word document with all of the questions in it attempted.
 
