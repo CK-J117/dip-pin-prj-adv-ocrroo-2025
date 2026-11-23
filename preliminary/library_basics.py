@@ -17,7 +17,7 @@ import cv2
 import numpy as np
 import pytesseract
 
-# This is where download is C:\Program Files\Tesseract-OCR\tesseract.exe
+pytesseract.pytesseract.tesseract_cmd= r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 VID_PATH = Path("../resources/oop.mp4")
 
@@ -85,6 +85,11 @@ class CodingVideo:
             raise ValueError("Failed to encode frame")
         return buf.tobytes()
 
+    def get_text_from_frame(self, frame_ref: int, seconds=True) -> str:
+        if seconds:
+            frame_ref = self.get_frame_number_at_time(frame_ref)
+        image = self.get_frame_rgb_array(frame_ref)
+        return pytesseract.image_to_string(image)
 
 
 
@@ -105,6 +110,7 @@ def test():
     oop = CodingVideo("../resources/oop.mp4")
     print(oop)
     oop.save_as_image(42)
+    print(repr(oop.get_text_from_frame(42)))
 
 if __name__ == '__main__':
     test()
