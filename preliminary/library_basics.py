@@ -15,7 +15,9 @@ Make sure you read the docstrings C.A.R.E.F.U.L.Y (yes, I took the L to check th
 from pathlib import Path
 import cv2
 import numpy as np
+import pytesseract
 
+# This is where download is C:\Program Files\Tesseract-OCR\tesseract.exe
 
 VID_PATH = Path("../resources/oop.mp4")
 
@@ -63,7 +65,7 @@ class CodingVideo:
         Note: cv2 defaults to BGR format, so this function converts the color space to RGB
         Reference
         ---------
-        # TODO: Find a tutorial on OpenCV that demonstrates color space conversion
+        # tutorial on OpenCV that demonstrates color space conversion:
         https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_colorspaces/py_colorspaces.html
         """
         self.capture.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
