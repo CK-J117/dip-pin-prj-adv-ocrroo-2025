@@ -91,12 +91,9 @@ class CodingVideo:
         image = self.get_frame_rgb_array(frame_ref)
         return pytesseract.image_to_string(image)
 
-
-
     def save_as_image(self, seconds: int, output_path: Path | str = 'output.png') -> None:
         """Saves the given frame as a png image
-        # TODO: Requires a third-party library to convert ndarray to png
-        # TODO: Identify the library and add a reference to its documentation
+        # Identify the library and add a reference to its documentation
         #https://docs.opencv.org/5.1.0/d4/da8/group__imgcodecs.html#gabbc7ef1aa2edfaa87772f1202d67e0ce
         """
         self.capture.set(cv2.CAP_PROP_POS_FRAMES, self.get_frame_number_at_time(seconds))

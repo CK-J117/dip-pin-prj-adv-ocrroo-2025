@@ -14,12 +14,12 @@ from library_basics import CodingVideo
 
 app = FastAPI()
 
-
 # We'll create a lightweight "database" for our videos
 # You can add uploads later (not required for assessment)
 # For now, we will just hardcode are samples
+BASE_DIR = Path(__file__).resolve().parent
 VIDEOS: dict[str, Path] = {
-    "demo": Path("../resources/oop.mp4")
+    "demo": Path(BASE_DIR /".."/ "resources" / "oop.mp4")
 }
 
 class VideoMetaData(BaseModel):
@@ -49,7 +49,7 @@ def list_videos():
 def _open_vid_or_404(vid: str) -> CodingVideo:
     path = VIDEOS.get(vid)
     if not path or not path.is_file():
-        raise HTTPException(status_code=404, detail="Video not found")
+        raise HTTPException(status_code=404, detail=f"Video not found")
     try:
         return CodingVideo(path)
     except ValueError as e:
@@ -61,7 +61,6 @@ def _meta(video: CodingVideo) -> VideoMetaData:
             frame_count=video.frame_count,
             duration_seconds=video.duration
     )
-
 
 @app.get("/video/{vid}", response_model=VideoMetaData)
 def video(vid: str):
@@ -79,10 +78,18 @@ def video(vid: str):
 
 @app.get("/video/{vid}/frame/{t}", response_class=Response)
 def video_frame(vid: str, t: float):
+    video = _open_vid_or_404(vid)
     try:
-        video = _open_vid_or_404(vid)
-        return Response(content=video.get_image_as_bytes(t), media_type="image/png")
+        return Response(content=video.get_image_as_bytes(int(t)), media_type="image/png")
     finally:
       video.capture.release()
 
-# TODO: add enpoint to get ocr e.g. /video/{vid}/frame/{t}/ocr
+# TODO: add endpoint to get ocr e.g. /video/{vid}/frame/{t}/ocr
+@app.get("/video/{vid}/frame/{t}/ocr")
+def video_ocr(vid: str, t: float ):
+    video = _open_vid_or_404(vid)
+    try:
+        text = video.get_text_from_frame(int(t))
+        return {"text": text}
+    finally:
+        video.capture.release()
