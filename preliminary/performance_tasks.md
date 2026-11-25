@@ -67,7 +67,7 @@ Tesseract consists of both an OCR Engine and a command line program. It is predo
 1. Examine the [Readme](https://github.com/tesseract-ocr/tesseract?tab=readme-ov-file) and find a list of Python wrappers.
 
 2. What is the URL that lists Python wrappers for Tesseract?
-  > [[<url-here>](https://tesseract-ocr.github.io/tessdoc/AddOns.html#tesseract-wrappers)]
+  > [[<url-here>]]https://tesseract-ocr.github.io/tessdoc/AddOns.html#tesseract-wrappers
 
 3. Select a Python wrapper. What wrapper did you choose and why? Ensure you address each element below in your answer
 > name of the python library: pytesseract
