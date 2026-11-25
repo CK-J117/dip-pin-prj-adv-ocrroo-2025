@@ -28,7 +28,7 @@ Complete the steps below and fill in the `> block` sections
 ### Installing and running OpenCV
 
 1. Examine the `pyproject.toml` what dependencies does it currently identify?
->
+>currently there are no dependencies
 >
 2. Create a `.venv` in this folder using `uv venv`
 3. Activate the `venv` as instructed by `uv`
@@ -36,20 +36,22 @@ Complete the steps below and fill in the `> block` sections
   - What role does OpenCV have in this project?
   >
   - What is the `uv pip` command to install OpenCV?
-  > `uv pip install opencv-python`
+  > `uv pip install opencv-python
   - What is the URL of this library's git repo?
   > [(https://github.com/opencv/opencv/releases/tag/5.1.0)](https://github.com/opencv/????-?????)
 5. Add OpenCV to your project using the `uv add` command:
   > `uv add name-of-open-cv-library
 
 6. Have the dependencies in the `pyproject.toml` changed? If so, how?
-  >
+  >Yes, dependencies are now: dependencies = [
+    "opencv-python>=5.1.0.95",
+]
   >
 7. Why did we use `uv add` over `uv pip`?
-  >
+  >using 'uv add' also adds the dependencies to the pyproject.toml file and updates the uv.lock file as well as what uv pip does - installs the package in the virtual environment. It essentially helps to manage the dependencies so that the project can be reproduced reliably.
   >
 8. The `numpy` library is required for OpenCV. Should you add an explicit requirement for it? Why/Why not?
-  >
+  >Yes, although it is already declared as a dependency in opencv-python, it is better to explicitly add it as this will help to avoid any version conflicts that may arise, especially if using other packages in the same project. 
   >
 9. Commit the changes so far to git. Use the message `chore: add OpenCV dependency`
 10. Go to `preliminary/library_basics.py` and complete the required functionality.
@@ -65,13 +67,13 @@ Tesseract consists of both an OCR Engine and a command line program. It is predo
 1. Examine the [Readme](https://github.com/tesseract-ocr/tesseract?tab=readme-ov-file) and find a list of Python wrappers.
 
 2. What is the URL that lists Python wrappers for Tesseract?
-  > <url-here>
+  > [[<url-here>](https://tesseract-ocr.github.io/tessdoc/AddOns.html#tesseract-wrappers)]
 
 3. Select a Python wrapper. What wrapper did you choose and why? Ensure you address each element below in your answer
-> name of the python library
-> how long ago was a commit made to the library
-> does it have external dependencies
-> how does it suite the project requirements
+> name of the python library: pytesseract
+> how long ago was a commit made to the library: 18th February 2025 (~9 months ago)
+> does it have external dependencies: It requires python 3.6 or later, it is just a wrapper and still requires the tesseract ocr engine, and it uses the Python Imaging Library (PIL / pillow).
+> how does it suit the project requirements
 
 4. Use UV to add the dependency to your project and your `pyproject.toml`
 
