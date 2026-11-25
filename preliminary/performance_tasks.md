@@ -96,11 +96,16 @@ FastAPI will allow us to enable communication with our OCR service from other pr
 4. Run the following curl command (may require git bash on Windows):
 `curl 127.0.0.1:8000/video`
 5. Confirm that a list of videos and URLs is returned by copying the output below:
-> Description
+> {"count":1,"videos":[{"id":"demo","path":"..\\resources\\oop.mp4","_links":{"self":"/video/demo","frame_example":"/video/demo/frame/1.0"}}]}
 6. What are the names of the two processes that just communicated?
->
+>A HTTP client-server communication. The curl command was run in a terminal - this is the client sending the get request to the server (uvicorn) running the fastapi, and getting a response (JSON)
 6. Modify the simple_api.py so that it works correctly with your implementation and complete any TODO markers
 7. Demonstrate the use of at least two other end points below:
->
+>http://127.0.0.1:8000/video/demo:
+>{"fps":23.976023976023978,"frame_count":15152,"duration_seconds":631.9646666666666}
+>http://127.0.0.1:8000/video/demo/frame/42:
+><img width="1151" height="695" alt="image" src="https://github.com/user-attachments/assets/ed18171b-98e4-4023-ad13-d2eee5e90ad4" />
+http://127.0.0.1:8000/video/demo/frame/42/ocr:
+{"text":"I finally saw The Matrix today.\nIt was the best documentary\nI've ever seen.\n\n"}
 >
 >
