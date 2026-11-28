@@ -5,8 +5,10 @@ Drive the API to complete "interprocess communication"
 Requirements
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi import Response
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from pathlib import Path
 from library_basics import CodingVideo
@@ -14,10 +16,12 @@ from library_basics import CodingVideo
 
 app = FastAPI()
 
+
 # We'll create a lightweight "database" for our videos
 # You can add uploads later (not required for assessment)
 # For now, we will just hardcode are samples
 BASE_DIR = Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=BASE_DIR/"templates")
 VIDEOS: dict[str, Path] = {
     "demo": Path(BASE_DIR /".."/ "resources" / "oop.mp4")
 }
@@ -27,6 +31,11 @@ class VideoMetaData(BaseModel):
     frame_count: int
     duration_seconds: float
     _links: dict | None = None
+
+
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request, video_id: str | None = None):
+    return templates.TemplateResponse(request,"index.html", {"request": request, "videos": VIDEOS, "video_id": video_id})
 
 @app.get("/video")
 def list_videos():
@@ -39,7 +48,8 @@ def list_videos():
                 "path": str(path), # Not standard for debug only
                 "_links": {
                     "self": f"/video/{vid}",
-                    "frame_example": f"/video/{vid}/frame/1.0"
+                    "frame_example": f"/video/{vid}/frame/1.0",
+                    "stream": f"/video/{vid}/stream"
                 }
             }
             for vid, path in VIDEOS.items()
@@ -69,7 +79,8 @@ def video(vid: str):
             meta = _meta(video)
             meta._links = {
                 "self": f"/video/{vid}",
-                "frames": f"/video/{vid}/frame/{{seconds}}"
+                "frames": f"/video/{vid}/frame/{{seconds}}",
+                "stream": f"/video/{vid}/stream"
             }
             return meta
     finally:
@@ -93,3 +104,10 @@ def video_ocr(vid: str, t: float ):
         return {"text": text}
     finally:
         video.capture.release()
+
+@app.get("/video/{vid}/stream")
+def stream(vid: str):
+    path = VIDEOS.get(vid)
+    if not path:
+        raise HTTPException(404)
+    return FileResponse(path, media_type="video/mp4")
