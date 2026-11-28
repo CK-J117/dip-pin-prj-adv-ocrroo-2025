@@ -28,3 +28,14 @@ window.addEventListener('popstate', () => {
     b.classList.toggle('active', t === theme);
   });
 });
+
+//button for getting the text
+document.getElementById("ocr-btn").addEventListener("click", async () => {
+  const player = document.getElementById("player");
+  console.log("player:", player);
+  if (!player) return;
+  const t = player.currentTime;
+  const res = await fetch(`/video/${player.dataset.vid}/frame/${t.toFixed(2)}/ocr`);
+  const data = await res.json();
+  document.getElementById("ocr-text").textContent = data.text;
+});

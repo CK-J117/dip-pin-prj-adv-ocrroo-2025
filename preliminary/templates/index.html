@@ -22,8 +22,12 @@
 
     <div class="panel-container">
         <div class="text-panel">
-            <h2>Text from Frame:</h2>
-            <p>Your descriptive text goes here.</p>
+            <div class="text-panel-header">
+                <h2>Text from Frame:</h2>
+                <button id="ocr-btn">Capture</button>
+
+            </div>
+            <pre id="ocr-text"></pre>
         </div>
         <div class="video-panel">
           <form method="get" action="/" class="video-controls">
@@ -35,7 +39,7 @@
             <button type="submit">Load</button>
           </form>
           {% if video_id %}
-            <video controls width="640" src="/video/{{ video_id }}/stream"></video>
+            <video id="player" controls width="640" data-vid="{{ video_id }}" src="/video/{{ video_id }}/stream"></video>
           {% endif %}
         </div>
     </div>
