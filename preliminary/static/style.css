@@ -2,28 +2,55 @@
 .panel-container {
   display: flex;
   gap: 20px;
-  align-items: center;
+  align-items: stretch;
+  min-height: 480px;
 }
 
 .text-panel {
-  flex: 1;
+  flex: 2;
   min-width: 300px;
   border: 2px solid var(--border-color);
   border-radius: 8px;
   padding: 20px;
   background-color: var(--bg);
   color: var(--text);
+  justify-content: flex-start;
 }
 
 .video-panel {
-  flex: 1;
+  flex: 3;
   min-width: 300px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
 }
 
 .video-panel video {
   width: 100%;
   height: auto;
   border-radius: 8px;
+}
+.video-controls {
+  /*align-self: stretch;*/
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.video-controls select {
+  width: 300px;
+  height: 40px;
+}
+
+.video-controls button {
+  height: 40px;
+  padding: 0 16px;
 }
 
 /* ===== Theme Variables (Default) ===== */
@@ -113,7 +140,15 @@ body[data-theme="theme-dyslexia"] .text-panel {
 }
 
 .theme-btn.active {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
 }
+
+.btn-default       { background-color: #ffffff; color: #000000; }
+.btn-high-contrast { background-color: #000000; color: #ffffff; }
+.btn-yellow-black  { background-color: #000000; color: #ffff00; }
+.btn-blue-white    { background-color: #ffffff; color: #003399; }
+.btn-cream         { background-color: #fdf6e3; color: #1a1a2e; }
+.btn-dyslexia      { background-color: #FAF0DC; color: #2D2A26; }
+.btn-irlen         { background-color: #E8EDF0; color: #333333; }
+.btn-photophobia   { background-color: #1A1A2E; color: #D4C9A8; }

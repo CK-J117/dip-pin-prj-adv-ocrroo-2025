@@ -9,14 +9,14 @@
 
   <nav class="theme-controls" aria-label="Display Options">
     <span class="theme-label">Display:</span>
-    <a href="/?theme=" class="theme-btn {% if theme == '' %}active{% endif %}">Default</a>
-    <a href="/?theme=theme-high-contrast" class="theme-btn {% if theme == 'theme-high-contrast' %}active{% endif %}">High Contrast</a>
-    <a href="/?theme=theme-yellow-black" class="theme-btn {% if theme == 'theme-yellow-black' %}active{% endif %}">Yellow/Black</a>
-    <a href="/?theme=theme-blue-white" class="theme-btn {% if theme == 'theme-blue-white' %}active{% endif %}">Blue/White</a>
-    <a href="/?theme=theme-cream" class="theme-btn {% if theme == 'theme-cream' %}active{% endif %}">Cream</a>
-    <a href="/?theme=theme-dyslexia" class="theme-btn {% if theme == 'theme-dyslexia' %}active{% endif %}">Dyslexia</a>
-    <a href="/?theme=theme-irlen" class="theme-btn {% if theme == 'theme-irlen' %}active{% endif %}">Irlen</a>
-    <a href="/?theme=theme-photophobia" class="theme-btn {% if theme == 'theme-photophobia' %}active{% endif %}">Light Sensitive</a>
+    <a href="/?theme=" class="theme-btn btn-default {% if theme == '' %}active{% endif %}">Default</a>
+    <a href="/?theme=theme-high-contrast" class="theme-btn btn-high-contrast {% if theme == 'theme-high-contrast' %}active{% endif %}">High Contrast</a>
+    <a href="/?theme=theme-yellow-black" class="theme-btn btn-yellow-black {% if theme == 'theme-yellow-black' %}active{% endif %}">Yellow/Black</a>
+    <a href="/?theme=theme-blue-white" class="theme-btn btn-blue-white {% if theme == 'theme-blue-white' %}active{% endif %}">Blue/White</a>
+    <a href="/?theme=theme-cream" class="theme-btn btn-cream {% if theme == 'theme-cream' %}active{% endif %}">Cream</a>
+    <a href="/?theme=theme-dyslexia" class="theme-btn btn-dyslexia {% if theme == 'theme-dyslexia' %}active{% endif %}">Dyslexia</a>
+    <a href="/?theme=theme-irlen" class="theme-btn btn-irlen {% if theme == 'theme-irlen' %}active{% endif %}">Irlen</a>
+    <a href="/?theme=theme-photophobia" class="theme-btn btn-photophobia {% if theme == 'theme-photophobia' %}active{% endif %}">Light Sensitive</a>
   </nav>
 
 
@@ -26,18 +26,19 @@
             <p>Your descriptive text goes here.</p>
         </div>
         <div class="video-panel">
-          <form method="get" action="/">
+          <form method="get" action="/" class="video-controls">
             <select name="video_id">
              {% for video_id, path in videos.items() %}
                 <option value="{{ video_id }}">{{ path.stem }}</option>
              {% endfor %}
             </select>
-            <button type="submit">Play</button>
+            <button type="submit">Load</button>
           </form>
           {% if video_id %}
             <video controls width="640" src="/video/{{ video_id }}/stream"></video>
           {% endif %}
         </div>
     </div>
+<script src="/static/theme.js"></script>
 </body>
 </html>
