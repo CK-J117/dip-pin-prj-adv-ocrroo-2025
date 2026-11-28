@@ -9,22 +9,27 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi import Response
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from pathlib import Path
 from library_basics import CodingVideo
 
-
+BASE_DIR = Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=BASE_DIR/"templates")
 app = FastAPI()
-
+app.mount("/static", StaticFiles(directory=BASE_DIR/"static"), name="static")
 
 # We'll create a lightweight "database" for our videos
 # You can add uploads later (not required for assessment)
 # For now, we will just hardcode are samples
-BASE_DIR = Path(__file__).resolve().parent
-templates = Jinja2Templates(directory=BASE_DIR/"templates")
+
+
 VIDEOS: dict[str, Path] = {
     "demo": Path(BASE_DIR /".."/ "resources" / "oop.mp4")
 }
+VALID_THEMES = ["", "theme-high-contrast", "theme-yellow-black",
+                "theme-blue-white", "theme-cream", "theme-dyslexia",
+                "theme-irlen", "theme-photophobia"]
 
 class VideoMetaData(BaseModel):
     fps: float
@@ -34,8 +39,14 @@ class VideoMetaData(BaseModel):
 
 
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request, video_id: str | None = None):
-    return templates.TemplateResponse(request,"index.html", {"request": request, "videos": VIDEOS, "video_id": video_id})
+@app.get("/", response_class=HTMLResponse)
+def read_root(request: Request, theme: str = "", video_id: str = None):
+    if theme not in VALID_THEMES:
+        theme = ""
+    return templates.TemplateResponse(
+        request, "index.html",
+        {"theme": theme, "videos": VIDEOS, "video_id": video_id}
+    )
 
 @app.get("/video")
 def list_videos():

@@ -1,0 +1,119 @@
+/* ===== Layout ===== */
+.panel-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.text-panel {
+  flex: 1;
+  min-width: 300px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.video-panel {
+  flex: 1;
+  min-width: 300px;
+}
+
+.video-panel video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ===== Theme Variables (Default) ===== */
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --border-color: #000000;
+}
+
+/* ===== Theme Overrides (via data attribute) ===== */
+body[data-theme="theme-high-contrast"] {
+  --bg: #000000;
+  --text: #ffffff;
+  --border-color: #ffffff;
+}
+
+body[data-theme="theme-yellow-black"] {
+  --bg: #000000;
+  --text: #ffff00;
+  --border-color: #ffff00;
+}
+
+body[data-theme="theme-blue-white"] {
+  --bg: #ffffff;
+  --text: #003399;
+  --border-color: #003399;
+}
+
+body[data-theme="theme-cream"] {
+  --bg: #fdf6e3;
+  --text: #1a1a2e;
+  --border-color: #1a1a2e;
+}
+
+body[data-theme="theme-dyslexia"] {
+  --bg: #FAF0DC;
+  --text: #2D2A26;
+  --border-color: #2D2A26;
+}
+
+body[data-theme="theme-irlen"] {
+  --bg: #E8EDF0;
+  --text: #333333;
+  --border-color: #333333;
+}
+
+body[data-theme="theme-photophobia"] {
+  --bg: #1A1A2E;
+  --text: #D4C9A8;
+  --border-color: #D4C9A8;
+}
+
+/* Dyslexia: extra spacing */
+body[data-theme="theme-dyslexia"] .text-panel {
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* ===== Theme Buttons ===== */
+.theme-controls {
+  margin-bottom: 16px;
+}
+
+.theme-label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.theme-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.theme-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.theme-btn:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}
+
+.theme-btn.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
